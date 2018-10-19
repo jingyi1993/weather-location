@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import Icon from './Icon/Icon';
+import Input from './addressInput/addressInput';
+import Button from './UI/Button';
+import Weather from './weatherShow/weatherShow';
 
 
 class App extends Component {
@@ -11,6 +14,7 @@ class App extends Component {
         lat: '',
         lng: '',
         temperature:'',
+        loading: true,
 
 
     };
@@ -45,6 +49,7 @@ class App extends Component {
                 return axios.get(weatherUrl)
             })
             .then((res)=>{
+                this.setState({loading : false})
                 var temperature = res.data.currently.temperature;
                 this.setState({temperature: temperature});
                 var apparentTemperature = res.data.currently.apparentTemperature;
@@ -68,49 +73,37 @@ class App extends Component {
 
 
         render(){
+
             let temperature = this.state.temperature;
             let apparentTemperature = this.state.apparentTemperature;
             console.log(this.state.temperature);
+
+            let weather = null;
+            if(!this.state.loading){
+                weather=<Weather temperature={temperature} apparentTemperature={apparentTemperature}/>
+
+            }
+
+
 
 
             return (
 
                 <div>
-                    <input style={{
-                        margin:'100px',
 
-                        width: '500px',
-                        height: '50px',
-                        border: 'pink 5px solid'}} type="text" name='name' placeholder='please type in a location' value={this.state.input}
-                           onChange={this.valueChangeHandler} />
-                    {/*<input  onChange={this.valueChange}> </input>*/}
+                    <Input onChange={this.valueChangeHandler} value={this.state.input}/>
+                    <Button onClick ={this.submitLocationHandler}/>
+                    {weather}
 
-                    <p style={{
-                        marginLeft: '200px',
-                        fontFamily: 'monospace',
-                        fontSize: 'x-large',
-                        color: 'wheat'}}>
-                        it is currently {temperature}
-                        it feels like {apparentTemperature}
-                    </p>
+
 
                     <div>
                         <Icon/>
                     </div>
-
-
-                    <button style={{
-                        marginLeft:'300px',
-
-                        border: 'none',
-                        color: 'pink',
-                        outline: 'none',
-                        cursor: 'pointer',
-                        font: 'inherit',
-                        padding: '10px',
-
-                        fontWeight: 'bold'}} onClick={this.submitLocationHandler}> submit</button>
                 </div>
+
+
+
 
             )
         }
