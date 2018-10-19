@@ -24,7 +24,7 @@ class App extends Component {
         console.log(location);
         const encodeAddress = encodeURIComponent(location);
         console.log(encodeAddress);
-        let geocodeURL = `http://www.mapquestapi.com/geocoding/v1/address?key=moCEAVVYlYwrXPnwpARArHVTtZgkqaoy&location=${encodeAddress}`;
+        let geocodeURL = `https://www.mapquestapi.com/geocoding/v1/address?key=moCEAVVYlYwrXPnwpARArHVTtZgkqaoy&location=${encodeAddress}`;
 
         axios.get(geocodeURL)
             .then((res)=>{
@@ -72,6 +72,7 @@ class App extends Component {
 
 
             return (
+
                 <div>
                     <input type="text" name='name' placeholder='please type in a location' value={this.state.input}
                            onChange={this.valueChangeHandler} />
