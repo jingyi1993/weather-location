@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import Icon from './Icon/Icon';
 
 
 class App extends Component {
@@ -74,15 +75,39 @@ class App extends Component {
             return (
 
                 <div>
-                    <input type="text" name='name' placeholder='please type in a location' value={this.state.input}
+                    <input style={{
+                        margin:'100px',
+
+                        width: '500px',
+                        height: '50px',
+                        border: 'pink 5px solid'}} type="text" name='name' placeholder='please type in a location' value={this.state.input}
                            onChange={this.valueChangeHandler} />
                     {/*<input  onChange={this.valueChange}> </input>*/}
 
-                    <p>
+                    <p style={{
+                        marginLeft: '200px',
+                        fontFamily: 'monospace',
+                        fontSize: 'x-large',
+                        color: 'wheat'}}>
                         it is currently {temperature}
                     </p>
 
-                    <button onClick={this.submitLocationHandler}> submit</button>
+                    <div>
+                        <Icon/>
+                    </div>
+
+
+                    <button style={{
+                        marginLeft:'300px',
+
+                        border: 'none',
+                        color: 'pink',
+                        outline: 'none',
+                        cursor: 'pointer',
+                        font: 'inherit',
+                        padding: '10px',
+
+                        fontWeight: 'bold'}} onClick={this.submitLocationHandler}> submit</button>
                 </div>
 
             )
