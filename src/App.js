@@ -73,7 +73,7 @@ class App extends Component {
 
             return (
                 <div>
-                    <input type="text" name='name' placeholder='your name' value={this.state.input}
+                    <input type="text" name='name' placeholder='please type in a location' value={this.state.input}
                            onChange={this.valueChangeHandler} />
                     {/*<input  onChange={this.valueChange}> </input>*/}
 
