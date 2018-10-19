@@ -10,7 +10,7 @@ class App extends Component {
         lat: '',
         lng: '',
         temperature:'',
-        apparentTemperature:'',
+
 
     };
 
