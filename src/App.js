@@ -48,7 +48,7 @@ class App extends Component {
                 var temperature = res.data.currently.temperature;
                 this.setState({temperature: temperature});
                 var apparentTemperature = res.data.currently.apparentTemperature;
-                // this.setState({apparentTemperature: apparentTemperature});
+                this.setState({apparentTemperature: apparentTemperature});
                 console.log(`it is currently ${temperature}, it feels like ${apparentTemperature}`)
             })
             .catch((e)=>{
@@ -69,6 +69,7 @@ class App extends Component {
 
         render(){
             let temperature = this.state.temperature;
+            let apparentTemperature = this.state.apparentTemperature;
             console.log(this.state.temperature);
 
 
@@ -90,6 +91,7 @@ class App extends Component {
                         fontSize: 'x-large',
                         color: 'wheat'}}>
                         it is currently {temperature}
+                        it feels like {apparentTemperature}
                     </p>
 
                     <div>
