@@ -18,6 +18,14 @@ const Weather = (props) => {
             color: 'wheat'}}>
     it feels like {props.apparentTemperature} 。F
     </p>
+            <p style={{
+                marginLeft: '200px',
+                fontFamily: 'monospace',
+                fontSize: 'x-large',
+                color: 'wheat'}}>
+                {props.summary}
+            </p>
+
         </div>
 
 

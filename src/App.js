@@ -14,7 +14,9 @@ class App extends Component {
         lat: '',
         lng: '',
         temperature:'',
+        summary:'',
         loading: true,
+        forecast: '',
 
 
     };
@@ -49,12 +51,16 @@ class App extends Component {
                 return axios.get(weatherUrl)
             })
             .then((res)=>{
-                this.setState({loading : false})
+                this.setState({loading : false});
+                var summary = res.data.currently.summary;
+                this.setState({summary: summary});
                 var temperature = res.data.currently.temperature;
                 this.setState({temperature: temperature});
                 var apparentTemperature = res.data.currently.apparentTemperature;
                 this.setState({apparentTemperature: apparentTemperature});
-                console.log(`it is currently ${temperature}, it feels like ${apparentTemperature}`)
+                console.log(`it is currently ${temperature}, it feels like ${apparentTemperature}`);
+                let daily = res.data.daily.data;
+                this.setState({forecast : daily});
             })
             .catch((e)=>{
                     if(e.code ==='ENOTFOUND'){
@@ -73,27 +79,89 @@ class App extends Component {
 
 
         render(){
+            let imgUrl = 'images/berlin.jpg';
+            // let imgUrl = 'images/berlin.jpg'
+            // let styles = {
+            //     root: {
+            //         backgroundImage: 'url(' + imgUrl + ')',
+            //         backgroundSize: 'cover',
+            //         overflow: 'hidden',
+            //     },
+            console.log(this.state.forecast);
 
             let temperature = this.state.temperature;
             let apparentTemperature = this.state.apparentTemperature;
+            let summary = this.state.summary;
             console.log(this.state.temperature);
 
             let weather = null;
+            let dailyWeather;
             if(!this.state.loading){
-                weather=<Weather temperature={temperature} apparentTemperature={apparentTemperature}/>
+                weather=<Weather temperature={temperature}
+                                 apparentTemperature={apparentTemperature}
+                                 summary ={summary}/>
+
+
+
+
 
             }
+
+            if(this.state.forecast){
+
+
+                 dailyWeather = this.state.forecast.slice(0,7).map(key=>{
+                        return (
+                            <div style={{padding: '30px'}} key={key.time}>
+                                {/*<p>{}</p>*/}
+                                <p>{key.humidity}</p>
+                                <p>{key.icon}</p>
+                            </div>
+                        )
+                    }
+
+                 );
+            }
+
+
+
+
+
+
+
+
 
 
 
 
             return (
 
-                <div>
+                <div
+                     style = {{ backgroundImage: 'url(' + imgUrl + ')',
+                         backgroundSize: 'cover',
+                         backgroundPosition: 'center center',
+                         backgroundRepeat: 'no-repeat',
+                     }}>
+
 
                     <Input onChange={this.valueChangeHandler} value={this.state.input}/>
                     <Button onClick ={this.submitLocationHandler}/>
                     {weather}
+                    {/*<div style={{display: 'flex', flexDirection:'row', justifyContent:'center',}}>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*<div>MON</div>*/}
+                    {/*</div>*/}
+                    <div style={{display: 'flex', flexDirection:'row', justifyContent:'center'}}>
+                    {dailyWeather}
+                    </div>
+
+
 
 
 
